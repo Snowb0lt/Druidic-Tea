@@ -28,6 +28,7 @@ public class Container : MonoBehaviour
         if (dragging)
         {
             transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset + new Vector3(0, 0, 10);
+            var barPos = fillBarObject.GetComponent<RectTransform>().localPosition;
         }
     }
     public void PickPourAmount()
@@ -77,6 +78,14 @@ public class Container : MonoBehaviour
             transform.position = startPos;
             dragging = false;
             fillAmount = 0;
+        }
+        if (collision.gameObject.CompareTag("CustomerWindow"))
+        {
+            //Begin the calculation and purchase
+            UIManager._instance.ResertBarPosition();
+            fillAmount = 0;
+            dragging = false;
+            transform.position = startPos;
         }
     }
 }
