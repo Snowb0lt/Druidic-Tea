@@ -9,9 +9,15 @@ public class TeapotScript : MonoBehaviour
 
     private Vector3 startPos;
     private Quaternion startRotation;
+    public static TeapotScript _instance;
+    public GameObject cupToBeFilled;
 
     private void Awake()
     {
+        if (_instance == null && _instance != this)
+        {
+            _instance = this;
+        }
         startPos = transform.position;
         startRotation = transform.rotation;
     }
@@ -21,9 +27,11 @@ public class TeapotScript : MonoBehaviour
         {
             transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset + new Vector3(0, 0, 10);
         }
-        if (isPouring)
+        if (isPouring && dragging)
         {
             this.gameObject.transform.eulerAngles = new Vector3(0, 0, 44);
+            Container container = cupToBeFilled.GetComponent<Container>();
+            container.FillCup();
         }
         else
         {

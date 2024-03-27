@@ -1,18 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static GameManager _instance;
+    private void Awake()
     {
-        
+        if (_instance == null && _instance != this)
+        {
+            _instance = this;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    //Set the pouring mechanics and display how full the cup is.
+    private float desiredAmount;
+    public Slider fillBar;
+    public void setFillAmount(float amount)
     {
-        
+        desiredAmount = amount;
     }
 }
