@@ -27,7 +27,7 @@ public class Container : MonoBehaviour
 
         if (dragging)
         {
-            transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset + new Vector3(0, 0, 10);
+            transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
             var barPos = fillBarObject.GetComponent<RectTransform>().localPosition;
         }
     }
