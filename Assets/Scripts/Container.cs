@@ -48,9 +48,13 @@ public class Container : MonoBehaviour
     }
     public void FillCup()
     {
-        if (fillBar.value != ContainerCapacity)
+        if (fillBar.value < ContainerCapacity)
         {
             fillAmount += 1 * fillRate * Time.deltaTime;
+        }
+        else
+        {
+            fillAmount = ContainerCapacity;
         }
     }
 
