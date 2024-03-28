@@ -10,6 +10,7 @@ public class Container : MonoBehaviour
     //dragging mechanics 
     [SerializeField] private bool dragging = false;
     private Vector3 offset;
+    [SerializeField] private Vector3 baroffset;
 
     private Vector3 startPos;
     private Quaternion startRotation;
@@ -19,17 +20,23 @@ public class Container : MonoBehaviour
         TeapotScript._instance.cupToBeFilled = this.gameObject;
         startPos = transform.position;
         startRotation = transform.rotation;
+        PickPourAmount();
     }
     private void Update()
     {
         fillBar.value = fillAmount;
         DisplayFillBar();
-
         if (dragging)
         {
             transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
-            var barPos = fillBarObject.GetComponent<RectTransform>().localPosition;
+            
+            //var barPos = fillBarObject.GetComponent<RectTransform>().localPosition;
+            //fillBarObject
         }
+    }
+    private void FixedUpdate()
+    {
+        fillBarObject.transform.position = transform.position + baroffset;
     }
     public void PickPourAmount()
     {
@@ -83,9 +90,11 @@ public class Container : MonoBehaviour
         {
             //Begin the calculation and purchase
             UIManager._instance.ResertBarPosition();
+            GameManager._instance.Transaction(fillAmount);
             fillAmount = 0;
             dragging = false;
             transform.position = startPos;
+            PickPourAmount();
         }
     }
 }
