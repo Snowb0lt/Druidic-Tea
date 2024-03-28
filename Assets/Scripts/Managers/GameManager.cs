@@ -40,6 +40,25 @@ public class GameManager : MonoBehaviour
     public void Transaction(float amountFilled)
     {
         var difference = Mathf.Abs(desiredAmount - amountFilled);
+        switch (difference)
+        {
+            case float i when i <= 0.03f:
+                Debug.Log("Perfect Pour");
+                break;
+            case float i when i <= 0.1f && i > 0.03f:
+                Debug.Log("Good Pour");
+                break;
+            case float i when i <= 0.2f && i > 0.1f:
+                Debug.Log("Alright Pour");
+                break;
+            case float i when i <= 0.3f && i > 0.2f:
+                Debug.Log("Poor Pour");
+                break;
+            case float i when i > 0.3f:
+                Debug.Log("I'm not paying for that!");
+                break;
+
+        }
         Debug.Log(difference);
         fillLine.transform.localPosition = fillLinePos;
     }
